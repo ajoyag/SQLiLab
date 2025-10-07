@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0
+    container_name: sqli_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sqli_lab
+      MYSQL_USER: labuser
+      MYSQL_PASSWORD: labpass
+    volumes:
+      - ./web/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+
+  web:
+    build: ./web
+    container_name: sqli_web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=sqli_lab
+      - DB_USER=labuser
+      - DB_PASS=labpass
+    depends_on:
+      - db
