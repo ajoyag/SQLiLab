@@ -115,7 +115,7 @@ No internet access is required to run the lab (except to download Docker images 
    ```bash
    git clone https://github.com/<your-username>/SQLiLab.git
    cd SQLiLab
-````
+   ```
 
 2. Build and start the containers:
 
